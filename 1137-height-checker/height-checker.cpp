@@ -1,7 +1,7 @@
 class Solution {
 public:
     int heightChecker(vector<int>& heights) {
-        vector<int>sorted_heights(heights);
+        vector<int>sorted_heights=heights;
         sort(sorted_heights.begin(),sorted_heights.end());
 
         int n=heights.size();

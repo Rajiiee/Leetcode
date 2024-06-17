@@ -1,11 +1,11 @@
 class Solution {
 public:
     bool judgeSquareSum(int c) {
-        long long left = 0, right = static_cast<long long>(sqrt(c));
-        while(left <= right) {
-            if(left * left + right * right == c) return true;
-            else if(left * left + right * right > c) right--;
-            else left++;
+        long long low = 0, high = static_cast<long long>(sqrt(c));
+        while(low <= high) {
+            if(low * low + high * high == c) return true;
+            else if(low * low + high * high> c) high--;
+            else low++;
         }
 
         return false;

@@ -14,34 +14,24 @@ public:
         vector<int> ans;
         int i=1;
         while(head->next->next != NULL){
-            if((head->next->val>head->val)
-            &&(head->next->val>head->next->next->val)){
-                ans.push_back(i);
-            }
-            if((head->next->val<head->val)
-            &&(head->next->val<head->next->next->val)){
+            if(((head->next->val>head->val)
+            &&(head->next->val>head->next->next->val))||
+            ((head->next->val<head->val)
+            &&(head->next->val<head->next->next->val))){
                 ans.push_back(i);
             }
             head=head->next;
             i++;
 
         }
-        vector<int> res;
         if(ans.size()<2){
-            res.push_back(-1);
-            res.push_back(-1);
+            return {-1,-1};
         }
-        else{
-            int n=ans.size();
-            int minVal=INT_MAX;
-            for(int i=1;i<n;i++){
-                minVal=min(minVal,ans[i]-ans[i-1]);
-            }
-            res.push_back(minVal);
-            res.push_back(ans[n-1]-ans[0]);
+        int minVal=INT_MAX;
+        for(int i=1;i<ans.size();i++){
+            minVal=min(minVal,ans[i]-ans[i-1]);
         }
-
-        return res;
-
+        int maxVal=ans.back()-ans.front();
+        return {minVal,maxVal};
     }
 };

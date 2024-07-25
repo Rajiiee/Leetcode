@@ -1,39 +1,48 @@
 class Solution {
 public:
-    void merge(vector<int>& A, int start, int mid, int end, vector<int>& buff)
-    {
-        int left=start, right=mid+1;
-        int s=end-start+1;
-        for(int i=0; i<s; i++)
-        {       
-            int i0=start+i;
-            if(left>mid){
-                buff[i0]=A[right];
-                right++;
-            } else if (right>end){
-                buff[i0]=A[left];
-                left++;
-            } else  if (A[left]<A[right]){
-                buff[i0]=A[left];
-                left++;
-            } else{
-                buff[i0]=A[right];
-                right++;
-            }
+    void merge(vector<int>& nums, int s,int e){
+        int mid=s+(e-s)/2;
+        int n1=mid-s+1;
+        int n2=e-mid;
+        int *first= new int[n1];
+        int *second= new int[n2];
+        for(int i=0;i<n1;i++){
+            first[i]=nums[s+i];
         }
-        for(int i=start; i<start+s; i++) A[i]=buff[i];
+        for(int i=0;i<n2;i++){
+            second[i]=nums[mid+i+1];
+        }
+        int i=0,j=0,k=s;
+        while(i<n1 && j<n2){
+            if(first[i]<second[j]){
+                nums[k]=first[i];
+                i++;
+            }else{
+                nums[k]=second[j];
+                j++;
+            }
+            k++;
+        }
+        while(i<n1){
+            nums[k]=first[i];
+            k++;i++;
+        }
+        while(j<n2){
+            nums[k]=second[j];
+            k++;j++;
+        }
     }
-    void mergeSort(vector<int>& A, int start, int end, vector<int>& buff )
+    void mergeSort(vector<int>& nums, int s, int e)
     {
-        if(end<=start) return;
-        int mid=start+(end-start)/2;
-        mergeSort(A, start, mid, buff);
-        mergeSort(A, mid+1, end, buff);
-        merge(A, start, mid, end, buff);
+        if( s>=e) return;
+        int mid=s+(e-s)/2;
+        mergeSort(nums,s,mid);
+        mergeSort(nums, mid+1, e);
+        merge(nums,s,e);
     }
     vector<int> sortArray(vector<int>& nums) {
-        vector<int> buff(nums.size());
-        mergeSort(nums, 0, nums.size()-1 ,buff);
+
+        mergeSort(nums, 0, nums.size()-1);
         return nums;
     }
 };

@@ -8,11 +8,11 @@ public:
 
             // Count ratings on the left of i
             for (int j = 0; j < i; j++) 
-                L[rating[j] <= rating[i]]++;//rating is unique
+                L[rating[j] < rating[i]]++;//rating is unique
             
             // Count ratings on the right of i
             for (int k=i+1; k<n; k++) 
-                R[rating[k] <= rating[i]]++;
+                R[rating[k] < rating[i]]++;
 
             // number of valid teams
             cnt += L[0]*R[1] + L[1]*R[0];
